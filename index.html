@@ -1,94 +1,57 @@
-EyeGuard Privacy Policy
-Publisher: EyeGuard Developer
-Effective date: 17 October 2026
-Privacy contact: panelclarity@gmail.com
-
-1. Who operates EyeGuard
-EyeGuard Developer provides EyeGuard, a parent-operated Android app for a family device. A parent creates a Parent PIN, chooses Parent Mode or Child Mode, and turns protections on or off.
-
-EyeGuard does not ask a child to create an EyeGuard account. EyeGuard does not operate an EyeGuard user account, advertising network, or analytics service in the current application.
-
-Contact: panelclarity@gmail.com
-
-Policy URL, once hosted: https://karal25071989-boop.github.io/eyeguard-privacy-policy/
-
-Effective date: 17 October 2026
-
-2. What stays on the device
-The following are processed or stored on the phone. They are not uploaded to an EyeGuard server.
-
-Parent PIN and recovery. The PIN and the recovery answer are stored only as salted PBKDF2 hashes (12,000 iterations, HMAC-SHA256 with an HMAC-SHA1 fallback) in the private preferences file eyeguard_guardian. The PIN itself is not stored. That file is excluded from Android backup.
-
-Fingerprint. When a parent turns fingerprint unlock on, Android performs the match. EyeGuard stores an on/off preference in eyeguard_biometric and a key in the Android Keystore (eyeguard_biometric_gate_v1). EyeGuard does not receive or store a fingerprint image. The on/off preference file is not in the current backup exclude list. The Keystore key is not part of ordinary Auto Backup.
-
-Protection settings. Parent or Child Mode, Eye Lens strength and mode, break settings, blink and distance settings, App Lock selections, and parent website allow or block choices stay in the app’s private storage. The guardian, lens-preference, website-control, network-filter, app-lock, and recent-install preference files are excluded from Android backup.
-
-Pause timer. A pause deadline can be stored in eyeguard_pause. That file is not in the current backup exclude list.
-
-Other local preferences. Battery-readiness, lens-off reminder, and Edge Button position files (eyeguard_battery_readiness, eyeguard_lens_off_reminder, eyeguard_edge_tab) are also not in the current backup exclude list. They are settings, not an account profile.
-
-Usage Access. If the parent grants Usage Access, EyeGuard reads Android usage statistics on the device to time breaks and to show a usage report. Those statistics are not uploaded by EyeGuard.
-
-Installed apps. EyeGuard reads launchable apps to build the App Lock list and a recent-install list for the parent. It does not use QUERY_ALL_PACKAGES. Those lists stay on the device. If the parent chooses to uninstall another app, EyeGuard opens Android’s own uninstall screen.
-
-Eye Lens and other on-screen windows. The colour tint, Edge Button, blink reminders, distance warnings, and parent break reminders are drawn on the device. Child Break and the child-protection hurdle use a separate Display over other apps window, also on the device.
-
-Website names while filtering. While the local filter is running, EyeGuard inspects DNS names and TLS server names in memory to allow or block a site. The filter path does not save those names as a browsing history. EyeGuard does not decrypt HTTPS page contents.
-
-Diagnostic files. The app can write local diagnostic logs on the device. The live domain-trace log path is enabled only when BuildConfig.DEBUG is true. These files are not sent to an analytics service.
-
-3. What leaves the device
-EyeGuard does transmit some network data. It does not send that data to an EyeGuard account server.
-
-DNS lookups. While website filtering is on, the local VPN is configured with the public resolvers 1.1.1.1 and 8.8.8.8 (NetworkFilterVpnService.kt). Domain names in DNS lookups are sent to those resolvers so a site can be allowed or blocked. This is ordinary DNS, not an encrypted DNS connection in the current code. EyeGuard does not receive a copy of those lookups on its own server. Allowed traffic then continues to the website over the phone’s own network. EyeGuard is not a remote VPN provider and does not offer anonymity or a change of location.
-
-Website-protection list. EyeGuard downloads a signed list of site names over HTTPS from:
-
-https://karal25071989-boop.github.io/eyeguard-ota/manifest.json
-
-and from the HTTPS file that manifest names. The request is a download (HTTP GET). It does not include the Parent PIN, a fingerprint, or a browsing history. The phone’s IP address is visible to that host as part of a normal HTTPS connection. The list is checked with a public signature key on the device before use. The private signing key is not in the app.
-
-Play Store link. If the parent uses Share or Rate, Android or the Play Store app opens a Play Store URL for this package. That is the store’s own page, not an EyeGuard analytics call.
-
-No advertising identifier and no analytics SDK are included in the current Gradle dependencies.
-
-4. Accessibility
-If the parent agrees in EyeGuard and then turns the service on in Android settings, EyeGuard uses an Accessibility service to draw Eye Lens, the Edge Button, blink reminders, distance warnings, and parent break reminders over other apps.
-
-The service is not a disability-support tool (isAccessibilityTool is false). It is not designed to read screen contents, read what is typed, perform gestures, or take screenshots. The running service does not request accessibility events. The parent can turn the service off in Android Accessibility settings. Features that depend on it stop when it is off.
-
-Display over other apps remains a separate permission, used for Child Break and related protection windows, and also checked by the Eye Lens path.
-
-5. VPN and website filtering
-If the parent allows Android’s VPN consent while Child Mode needs website protection, EyeGuard starts a local VPN on the device. The tunnel address is on the phone. There is no remote EyeGuard VPN server. The purpose is to filter restricted websites, not to hide identity or bypass blocks.
-
-Some financial apps may warn or limit access while this VPN is active. Turning Child Mode off, which requires the Parent PIN, stops that protection mode.
-
-6. App Lock and Device Administrator
-App Lock. The parent can require the Parent PIN before selected apps, including Settings, open. Those choices stay on the device.
-
-Protect EyeGuard. If the parent turns this on, EyeGuard shows an explanation, asks for the Parent PIN, and then opens Android’s Device Administrator screen. The admin declaration requests no password, wipe, camera, or other device-admin policy. Android can still refuse to uninstall EyeGuard until that admin is deactivated. The parent turns it off in EyeGuard with the Parent PIN, which asks Android to remove the admin. EyeGuard does not use device-owner uninstall blocking.
-
-7. How long information stays, and how to delete it
-Local settings and hashes remain until the parent changes them, clears EyeGuard’s storage, or uninstalls the app.
-
-Clearing storage removes the local PIN hash, recovery hash, and settings. Uninstall can require the parent to turn off Protect EyeGuard first, because Android Device Administrator is active.
-
-EyeGuard has no server account to delete. DNS lookups are not stored by EyeGuard as a history. Copies of non-excluded preference files that Android Backup has already saved follow the user’s Google account backup rules, which EyeGuard does not control. The publisher should decide whether the preference files that are not excluded today should be excluded before release.
-
-The downloaded site list stays on the device until a newer signed list replaces it or the app’s files are removed.
-
-8. Children
-A parent operates EyeGuard. A child may use the phone while Child Mode is on. EyeGuard does not ask the child for a name, email address, or EyeGuard account.
-
-Website filtering, breaks, and the screen tint run for that family device. Domain names looked up while filtering is on are sent to the DNS resolvers in section 3. That is the transmission a parent should understand before turning filtering on. It is not a profile sold by EyeGuard.
-
-This draft does not enroll EyeGuard in Google Play’s Designed for Families program. That decision is the publisher’s.
-
-9. Changes to this policy
-EyeGuard Developer will update this page and its effective date when these practices change. The in-app privacy notice may not yet link to this policy. We intend to add the link in an app update.
-
-10. Contact
-EyeGuard Developer
-
-panelclarity@gmail.com
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="EyeGuard privacy policy: parental controls, on-device protection, Accessibility, VPN filtering and data practices.">
+<title>Privacy Policy | EyeGuard</title>
+<style>body{margin:0;background:#f6f8fb;color:#172338;font:16px/1.7 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}main{max-width:820px;margin:32px auto;padding:36px 40px;background:#fff;border-radius:14px;box-shadow:0 2px 16px #15284012}h1{font-size:2rem;line-height:1.2}h2{margin-top:2rem;padding-top:.5rem;border-top:1px solid #e4e9f0;font-size:1.25rem}a{color:#165fba;overflow-wrap:anywhere}p{margin:.9rem 0}code{overflow-wrap:anywhere}header p{color:#53637b}strong{color:#182d49}@media(max-width:700px){main{margin:0;padding:22px;border-radius:0}}</style>
+</head><body><main><header><h1>EyeGuard Privacy Policy</h1><p><strong>Publisher:</strong> EyeGuard Developer<br><strong>Effective date:</strong> 17 October 2026<br><strong>Privacy contact:</strong> <a href="mailto:panelclarity@gmail.com">panelclarity@gmail.com</a></p></header>
+<h2>1. Who operates EyeGuard</h2>
+<p>EyeGuard Developer provides EyeGuard, a parent-operated Android app for a family device. A parent creates a Parent PIN, chooses Parent Mode or Child Mode, and turns protections on or off.</p>
+<p>EyeGuard does not ask a child to create an EyeGuard account. EyeGuard does not operate an EyeGuard user account, advertising network, or analytics service in the current application.</p>
+<p>Contact: panelclarity@gmail.com</p>
+<p>Policy URL, once hosted: https://karal25071989-boop.github.io/eyeguard-privacy-policy/</p>
+<p>Effective date: 17 October 2026</p>
+<h2>2. What stays on the device</h2>
+<p>The following are processed or stored on the phone. They are not uploaded to an EyeGuard server.</p>
+<p><strong>Parent PIN and recovery.</strong> The PIN and the recovery answer are stored only as salted PBKDF2 hashes (12,000 iterations, HMAC-SHA256 with an HMAC-SHA1 fallback) in the private preferences file <code>eyeguard_guardian</code>. The PIN itself is not stored. That file is excluded from Android backup.</p>
+<p><strong>Fingerprint.</strong> When a parent turns fingerprint unlock on, Android performs the match. EyeGuard stores an on/off preference in <code>eyeguard_biometric</code> and a key in the Android Keystore (<code>eyeguard_biometric_gate_v1</code>). EyeGuard does not receive or store a fingerprint image. The on/off preference file is not in the current backup exclude list. The Keystore key is not part of ordinary Auto Backup.</p>
+<p><strong>Protection settings.</strong> Parent or Child Mode, Eye Lens strength and mode, break settings, blink and distance settings, App Lock selections, and parent website allow or block choices stay in the app’s private storage. The guardian, lens-preference, website-control, network-filter, app-lock, and recent-install preference files are excluded from Android backup.</p>
+<p><strong>Pause timer.</strong> A pause deadline can be stored in <code>eyeguard_pause</code>. That file is not in the current backup exclude list.</p>
+<p><strong>Other local preferences.</strong> Battery-readiness, lens-off reminder, and Edge Button position files (<code>eyeguard_battery_readiness</code>, <code>eyeguard_lens_off_reminder</code>, <code>eyeguard_edge_tab</code>) are also not in the current backup exclude list. They are settings, not an account profile.</p>
+<p><strong>Usage Access.</strong> If the parent grants Usage Access, EyeGuard reads Android usage statistics on the device to time breaks and to show a usage report. Those statistics are not uploaded by EyeGuard.</p>
+<p><strong>Installed apps.</strong> EyeGuard reads launchable apps to build the App Lock list and a recent-install list for the parent. It does not use <code>QUERY_ALL_PACKAGES</code>. Those lists stay on the device. If the parent chooses to uninstall another app, EyeGuard opens Android’s own uninstall screen.</p>
+<p><strong>Eye Lens and other on-screen windows.</strong> The colour tint, Edge Button, blink reminders, distance warnings, and parent break reminders are drawn on the device. Child Break and the child-protection hurdle use a separate Display over other apps window, also on the device.</p>
+<p><strong>Website names while filtering.</strong> While the local filter is running, EyeGuard inspects DNS names and TLS server names in memory to allow or block a site. The filter path does not save those names as a browsing history. EyeGuard does not decrypt HTTPS page contents.</p>
+<p><strong>Diagnostic files.</strong> The app can write local diagnostic logs on the device. The live domain-trace log path is enabled only when <code>BuildConfig.DEBUG</code> is true. These files are not sent to an analytics service.</p>
+<h2>3. What leaves the device</h2>
+<p>EyeGuard does transmit some network data. It does not send that data to an EyeGuard account server.</p>
+<p><strong>DNS lookups.</strong> While website filtering is on, the local VPN is configured with the public resolvers <code>1.1.1.1</code> and <code>8.8.8.8</code> (<code>NetworkFilterVpnService.kt</code>). Domain names in DNS lookups are sent to those resolvers so a site can be allowed or blocked. This is ordinary DNS, not an encrypted DNS connection in the current code. EyeGuard does not receive a copy of those lookups on its own server. Allowed traffic then continues to the website over the phone’s own network. EyeGuard is not a remote VPN provider and does not offer anonymity or a change of location.</p>
+<p><strong>Website-protection list.</strong> EyeGuard downloads a signed list of site names over HTTPS from:</p>
+<p><code>https://karal25071989-boop.github.io/eyeguard-ota/manifest.json</code></p>
+<p>and from the HTTPS file that manifest names. The request is a download (HTTP GET). It does not include the Parent PIN, a fingerprint, or a browsing history. The phone’s IP address is visible to that host as part of a normal HTTPS connection. The list is checked with a public signature key on the device before use. The private signing key is not in the app.</p>
+<p><strong>Play Store link.</strong> If the parent uses Share or Rate, Android or the Play Store app opens a Play Store URL for this package. That is the store’s own page, not an EyeGuard analytics call.</p>
+<p>No advertising identifier and no analytics SDK are included in the current Gradle dependencies.</p>
+<h2>4. Accessibility</h2>
+<p>If the parent agrees in EyeGuard and then turns the service on in Android settings, EyeGuard uses an Accessibility service to draw Eye Lens, the Edge Button, blink reminders, distance warnings, and parent break reminders over other apps.</p>
+<p>The service is not a disability-support tool (<code>isAccessibilityTool</code> is false). It is not designed to read screen contents, read what is typed, perform gestures, or take screenshots. The running service does not request accessibility events. The parent can turn the service off in Android Accessibility settings. Features that depend on it stop when it is off.</p>
+<p>Display over other apps remains a separate permission, used for Child Break and related protection windows, and also checked by the Eye Lens path.</p>
+<h2>5. VPN and website filtering</h2>
+<p>If the parent allows Android’s VPN consent while Child Mode needs website protection, EyeGuard starts a local VPN on the device. The tunnel address is on the phone. There is no remote EyeGuard VPN server. The purpose is to filter restricted websites, not to hide identity or bypass blocks.</p>
+<p>Some financial apps may warn or limit access while this VPN is active. Turning Child Mode off, which requires the Parent PIN, stops that protection mode.</p>
+<h2>6. App Lock and Device Administrator</h2>
+<p><strong>App Lock.</strong> The parent can require the Parent PIN before selected apps, including Settings, open. Those choices stay on the device.</p>
+<p><strong>Protect EyeGuard.</strong> If the parent turns this on, EyeGuard shows an explanation, asks for the Parent PIN, and then opens Android’s Device Administrator screen. The admin declaration requests no password, wipe, camera, or other device-admin policy. Android can still refuse to uninstall EyeGuard until that admin is deactivated. The parent turns it off in EyeGuard with the Parent PIN, which asks Android to remove the admin. EyeGuard does not use device-owner uninstall blocking.</p>
+<h2>7. How long information stays, and how to delete it</h2>
+<p>Local settings and hashes remain until the parent changes them, clears EyeGuard’s storage, or uninstalls the app.</p>
+<p>Clearing storage removes the local PIN hash, recovery hash, and settings. Uninstall can require the parent to turn off Protect EyeGuard first, because Android Device Administrator is active.</p>
+<p>EyeGuard has no server account to delete. DNS lookups are not stored by EyeGuard as a history. Copies of non-excluded preference files that Android Backup has already saved follow the user’s Google account backup rules, which EyeGuard does not control. The publisher should decide whether the preference files that are not excluded today should be excluded before release.</p>
+<p>The downloaded site list stays on the device until a newer signed list replaces it or the app’s files are removed.</p>
+<h2>8. Children</h2>
+<p>A parent operates EyeGuard. A child may use the phone while Child Mode is on. EyeGuard does not ask the child for a name, email address, or EyeGuard account.</p>
+<p>Website filtering, breaks, and the screen tint run for that family device. Domain names looked up while filtering is on are sent to the DNS resolvers in section 3. That is the transmission a parent should understand before turning filtering on. It is not a profile sold by EyeGuard.</p>
+<p>This draft does not enroll EyeGuard in Google Play’s Designed for Families program. That decision is the publisher’s.</p>
+<h2>9. Changes to this policy</h2>
+<p>EyeGuard Developer will update this page and its effective date when these practices change. The in-app privacy notice may not yet link to this policy. We intend to add the link in an app update.</p>
+<h2>10. Contact</h2>
+<p>EyeGuard Developer</p>
+<p>panelclarity@gmail.com</p>
+</main></body></html>
